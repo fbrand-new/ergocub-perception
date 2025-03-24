@@ -22,14 +22,14 @@ do
 done
 
 # Start the container with the right options
-docker run --gpus=all -v "$(pwd)":/home/ergocub/perception -itd --rm \
---gpus=all \
+docker run --gpus all -v "$(pwd)":/home/ergocub/perception -itd \
 --env DISPLAY=$DISPLAY \
 --env PYTHONPATH=/home/ergocub/perception \
 --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+--privileged \
 -v ~/.config/yarp/yarp.conf:/home/ergocub/.config/yarp/yarp.conf \
 --ipc=host \
---network=host --name $DOCKER_CONTAINER_NAME ar0s/ergocub-perception-image bash
+--network=host --name $DOCKER_CONTAINER_NAME elandini84/test_ergocub:custom bash
 
 # Create tmux session
 tmux new-session -d -s $TMUX_NAME
@@ -82,7 +82,7 @@ tmux rename-window -t $TMUX_NAME components
 tmux select-pane -T "Manager"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/manager.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/manager.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
@@ -90,7 +90,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Human Detection"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/human_detection.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/human_detection.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
@@ -98,7 +98,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Human Pose Estimation"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/human_pose_estimation.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/human_pose_estimation.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
@@ -106,7 +106,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Action Recognition"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/action_recognition.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/action_recognition.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
@@ -114,7 +114,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Sink"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/sink2.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/sink2.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
@@ -122,7 +122,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Human Console"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python scripts/human_console2.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/human_console2.py" Enter
 
 tmux select-layout -t $TMUX_NAME tiled
 
