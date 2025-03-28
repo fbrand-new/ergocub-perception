@@ -1,0 +1,1 @@
+echo "reset" | yarp rpc /yarpActionsPlayerHandshake/rpc

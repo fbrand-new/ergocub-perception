@@ -1,0 +1,1 @@
+echo "start wave_hand" | yarp rpc /yarpActionsPlayerWave/rpc

@@ -38,7 +38,13 @@ class HumanPoseEstimation(Network.node):
         if rgb in Signals or bbox in Signals:
             return {}
 
-        ret = self.hpe_model.estimate(rgb, bbox, yarp_read_time)
+        # ret = self.hpe_model.estimate(rgb, bbox, yarp_read_time)
+        try:
+            ret = self.hpe_model.estimate(rgb, bbox, yarp_read_time)
+        except:
+            print("Could not estimate human pose!")
+            return {}
+
         logger.info("Human pose estimated!", recurring=True)
         human_position = [ret["human_position"][0], ret["human_position"][1],ret["human_position"][2]]
         human_occupancy = [ret["human_occupancy"][0],ret["human_occupancy"][1],ret["human_occupancy"][2],ret["human_occupancy"][3]]

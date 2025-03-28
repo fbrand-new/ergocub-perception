@@ -1,0 +1,1 @@
+echo "start handshake" | yarp rpc /yarpActionsPlayerHandshake/rpc

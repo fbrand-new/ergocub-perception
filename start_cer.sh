@@ -114,7 +114,7 @@ tmux split-window -h -t $TMUX_NAME
 tmux select-pane -T "Sink"
 tmux send-keys -t $TMUX_NAME "docker exec -it $DOCKER_CONTAINER_NAME bash" Enter
 tmux send-keys -t $TMUX_NAME "cd perception" Enter
-tmux send-keys -t $TMUX_NAME "python3 scripts/sink2.py" Enter
+tmux send-keys -t $TMUX_NAME "python3 scripts/sink_blender.py" Enter
 
 tmux split-window -h -t $TMUX_NAME
 
